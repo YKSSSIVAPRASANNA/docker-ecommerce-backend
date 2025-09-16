@@ -1,0 +1,86 @@
+Dockerize Fullstack App from Git Repos
+---------------------------------------
+Step1: Push fontend and backend into Github
+
+git init
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/suneethabulla/docker-ecommerce-frontend.git
+git push -u origin main
+
+git init
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/suneethabulla/docker-ecommerce-backend.git
+git push -u origin main
+
+
+
+Frontend github url: https://github.com/suneethabulla/docker-ecommerce-frontend.git
+Backend github url: https://github.com/suneethabulla/docker-ecommerce-backend.git
+
+Step2: check all port numbers are available or not
+
+netstat -ano | findstr :8081
+net stop MySQL80
+net start MySQL80
+
+frontend : 3000:80
+backend : 8080:8081
+database: 3306:3306
+
+
+step3: create dockerfiles and docker compose for application
+
+docker-git-fullstackapp
+	Dockerfile.frontend
+	nginx.conf
+	Dockerfile.backend
+	docker-compose.yml (db, frontend,backend)
+
+
+docker compose up -d --build
+
+
+docker exec -it ecommerce-db mysql -uroot -proot
+SHOW DATABASES;
+USE ecommerce;
+SHOW TABLES;
+
+-- Insert Computers
+INSERT INTO products (name, category, price, image_path) VALUES
+('Gaming PC', 'computers', 1200.00, 'gaming_pc.jpeg'),
+('Office Desktop', 'computers', 800.00, 'office_desktop.jpeg'),
+('Mini PC', 'computers', 500.00, 'mini_pc.jpeg'),
+('Workstation', 'computers', 2500.00, 'workstation.jpeg');
+
+-- Insert Mobiles
+INSERT INTO products (name, category, price, image_path) VALUES
+('iPhone 14', 'mobiles', 999.00, 'iphone_14.jpeg'),
+('Samsung Galaxy S23', 'mobiles', 899.00, 'samsung_galaxy_s23.jpeg'),
+('Google Pixel 7', 'mobiles', 799.00, 'google_pixel_7.jpeg'),
+('OnePlus 11', 'mobiles', 749.00, 'oneplus_11.jpeg');
+
+-- Insert Laptops
+INSERT INTO products (name, category, price, image_path) VALUES
+('MacBook Air', 'laptops', 1099.00, 'macbook_air.jpeg'),
+('Dell XPS 15', 'laptops', 1299.00, 'dell_xps_15.jpeg'),
+('Lenovo ThinkPad', 'laptops', 999.00, 'lenovo_thinkpad.jpeg'),
+('HP Spectre x360', 'laptops', 1199.00, 'hp_spectre_x360.jpeg');
+
+-- Insert Pendrives
+INSERT INTO products (name, category, price, image_path) VALUES
+('SanDisk 64GB', 'pendrives', 15.00, 'sandisk_64gb.jpeg'),
+('Kingston 128GB', 'pendrives', 25.00, 'kingston_128gb.jpeg'),
+('Sony 256GB', 'pendrives', 50.00, 'sony_256gb.jpeg'),
+('Samsung 512GB', 'pendrives', 80.00, 'samsung_512gb.jpeg');
+
+Select * from prodcuts;
+
+
+
+
+
+
